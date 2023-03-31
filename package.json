@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "name": "chomp-node-server-app",
+  "version": "1.0.0",
+  "description": "NodeJS server for Chomp web app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Madeline Chew and Stephen Yu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "yelp-fusion": "^3.0.0"
+  }
+}
