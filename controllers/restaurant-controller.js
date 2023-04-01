@@ -9,7 +9,7 @@ const HEADER = {
 
 const RxController = (app) => {
   const findRxs = async (req, res) => {
-    const { term, location, priceRange } = req.query;
+    const { term, location, price } = req.query;
 
     let apiQuery = `${YELP_RXS_REST_API_URL}/businesses/search?`;
     if (term) {
@@ -18,8 +18,8 @@ const RxController = (app) => {
     if (location) {
       apiQuery += `location=${encodeURIComponent(location)}&`;
     }
-    if (priceRange) {
-      apiQuery += `price=${encodeURIComponent(priceRange)}`;
+    if (price) {
+      apiQuery += `price=${encodeURIComponent(price)}`;
     }
 
     const response = await axios.get(apiQuery, HEADER);
