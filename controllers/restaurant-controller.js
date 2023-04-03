@@ -1,9 +1,13 @@
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const YELP_RXS_REST_API_URL = "https://api.yelp.com/v3";
+const YELP_API_KEY = process.env.YELP_API_KEY;
 const HEADER = {
   headers: {
-    Authorization: `Bearer Wm0L8O-5Vq0xe6Q0qW37yUeC8DzlJVsD7NSXy4g8alZDLXKf7o_20n7hijKvgG0twYcWl_0oVlTC8JXt9cedwQzriGyhT74ZeCEl8vVWBUM8AGrenC9NOFZeEJUkZHYx`,
+    Authorization: `Bearer ${YELP_API_KEY}`,
   },
 };
 
