@@ -11,7 +11,7 @@ const HEADER = {
   },
 };
 
-const RxController = (app) => {
+const RxsController = (app) => {
   const findRxs = async (req, res) => {
     const { term, location, price } = req.query;
 
@@ -33,4 +33,4 @@ const RxController = (app) => {
   app.get("/api/restaurants", findRxs);
 };
 
-export default RxController;
+export default RxsController;
