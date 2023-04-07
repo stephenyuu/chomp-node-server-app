@@ -15,18 +15,18 @@ const RxController = (app) => {
   const findRxs = async (req, res) => {
     const { term, location, price } = req.query;
 
-    let apiQuery = `${YELP_RXS_REST_API_URL}/businesses/search?`;
+    let yelpBusinessSearch = `${YELP_RXS_REST_API_URL}/businesses/search?`;
     if (term) {
-      apiQuery += `term=${encodeURIComponent(term)}&`;
+      yelpBusinessSearch += `term=${encodeURIComponent(term)}&`;
     }
     if (location) {
-      apiQuery += `location=${encodeURIComponent(location)}&`;
+      yelpBusinessSearch += `location=${encodeURIComponent(location)}&`;
     }
     if (price) {
-      apiQuery += `price=${encodeURIComponent(price)}`;
+      yelpBusinessSearch += `price=${encodeURIComponent(price)}`;
     }
 
-    const response = await axios.get(apiQuery, HEADER);
+    const response = await axios.get(yelpBusinessSearch, HEADER);
     res.json(response.data.businesses);
   };
 
