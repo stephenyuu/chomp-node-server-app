@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import RxController from "./controllers/rxs-controller.js";
+import RxsController from "./controllers/rxs-controller.js";
 
 const app = express();
 app.use(cors());
