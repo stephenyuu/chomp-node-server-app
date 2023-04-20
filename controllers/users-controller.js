@@ -27,7 +27,7 @@ const UserController = (app) => {
   const profile = async (req, res) => {
     const currentUser = req.session["currentUser"];
     if (!currentUser) {
-      res.sendStatus(404);
+      res.sendStatus(401);
       return;
     }
     res.send(currentUser);
@@ -38,12 +38,18 @@ const UserController = (app) => {
     res.sendStatus(200);
   };
 
+  const updateUser = async (req, res) => {
+    const user = req.body;
+    const status = await dao.updateUser(req.params.id, user);
+    res.send(status);
+  };
   
 
   app.post("/api/users/login", login);
   app.get("/api/users/profile", profile);
   app.post("/api/users/register", register);
   app.post("/api/users/logout", logout);
+  app.put("/api/users/:id", updateUser);
 
 };
 
