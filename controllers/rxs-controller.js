@@ -15,22 +15,32 @@ const RxsController = (app) => {
   const findRxs = async (req, res) => {
     const { term, location, price } = req.query;
 
-    let yelpBusinessSearch = `${YELP_RXS_REST_API_URL}/businesses/search?`;
+    let yelpSearchBusinessesQuery = `${YELP_RXS_REST_API_URL}/businesses/search?`;
     if (term) {
-      yelpBusinessSearch += `term=${encodeURIComponent(term)}&`;
+      yelpSearchBusinessesQuery += `term=${encodeURIComponent(term)}&`;
     }
     if (location) {
-      yelpBusinessSearch += `location=${encodeURIComponent(location)}&`;
+      yelpSearchBusinessesQuery += `location=${encodeURIComponent(location)}&`;
     }
     if (price) {
-      yelpBusinessSearch += `price=${encodeURIComponent(price)}`;
+      yelpSearchBusinessesQuery += `price=${encodeURIComponent(price)}`;
     }
 
-    const response = await axios.get(yelpBusinessSearch, HEADER);
+    const response = await axios.get(yelpSearchBusinessesQuery, HEADER);
     res.json(response.data.businesses);
+  };
+  
+  const findRxDetails = async (req, res) => {
+    const { rxid } = req.params;
+
+    let yelpGetBusinessByIdQuery = `${YELP_RXS_REST_API_URL}/businesses/${rxid}`;
+
+    const response = await axios.get(yelpGetBusinessByIdQuery, HEADER);
+    res.json(response.data);
   };
 
   app.get("/api/restaurants", findRxs);
+  app.get("/api/restaurants/:rxid", findRxDetails);
 };
 
 export default RxsController;
