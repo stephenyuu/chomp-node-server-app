@@ -4,7 +4,6 @@ import RxsController from "./controllers/rxs-controller.js";
 import UserController from "./controllers/users-controller.js";
 import mongoose from "mongoose";
 import session from "express-session";
-import SessionController from "./controllers/sessions-controller.js";
 
 const CONNECTION_STRING = "mongodb://127.0.0.1:27017/chomp";
 mongoose.connect(CONNECTION_STRING);
@@ -30,7 +29,6 @@ const PORT = process.env.PORT || 4000;
 
 RxsController(app);
 UserController(app);
-SessionController(app);
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost: ${PORT}`);
