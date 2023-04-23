@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
 const likesSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-    rxsMongooseKey: {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users", required: true},
+    rxMongooseKey: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "rxsModel",
+      required: true
     },
-    albumId: String,
+    rxId: {type: String, required: true}
   },
   { collection: "likes" }
-); 
+);
 
 export default likesSchema;

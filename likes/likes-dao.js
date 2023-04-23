@@ -5,7 +5,7 @@ export const createLike = async (like) => {
   return newLike;
 };
 
-export const findLikeByAlbumId = async (rxId) => {
+export const findLikeByRxId = async (rxId) => {
   const likes = await likesModel.find({ rxId });
   return likes;
 };
@@ -16,6 +16,11 @@ export const findLikesByUserId = async (userId) => {
 };
 
 export const findLikeByCredentials = async ({ rxId, userId }) => {
-    const relationship = await usersModel.findOne({ rxId, userId });
+    const relationship = await likesModel.findOne({ rxId, userId});
     return relationship;
+};
+
+export const dislike = async ({ rxId, userId}) => {
+    const status = await likesModel.deleteOne({ rxId, userId});
+    return status;
   };

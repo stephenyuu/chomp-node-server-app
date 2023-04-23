@@ -1,6 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import * as rxDao from "../rxs/rxs-dao.js"
+import * as likesDao from "../likes/likes-dao.js"
 
 dotenv.config();
 
@@ -47,22 +48,55 @@ const RxsController = (app) => {
       return;
     }
 
-    let rx = await rxDao.findAlbumByRxId(req.params.rxId);
+    let rx = await rxDao.findRxByRxId(req.params.rxId);
+
     if (!rx) {
-      rx = await rxDao.createAlbum(req.body);
+      rx = await rxDao.createRx(req.body);
     }
+
     const like = await likesDao.createLike({
       userId: currentUser._id,
       rxId: rx.rxId,
-      albumMongooseKey: rx._id,
+      rxMongooseKey: rx._id,
     });
     res.json(like);
   };
 
-  app.post("/api/restauranks/:rxId/likes", likeRx);
+  const findLikeRelationship = async (req, res) => {
+    const currentUser = req.session["currentUser"];
+    if (!currentUser) {
+      res.sendStatus(401);
+      return;
+    }
 
+    const liked = await likesDao.findLikeByCredentials({ rxId: req.params.rxId, userId: req.params.userId });
+    res.json(liked);
+  }
+
+  const dislike = async (req, res) => {
+    const status = await likesDao.dislike({ rxId: req.params.rxId, userId: req.params.userId });
+    res.send(status);
+  };
+
+  const findLikedRxs = async (req, res) => {
+    const liked = await likesDao.findLikesByUserId(req.params.userId);
+  
+    const rxDetails = await Promise.all(
+      liked.map(async (rx) => {
+        const response = await rxDao.findRxByRxId(rx.rxId);
+        return response;
+      })
+    );
+  
+    res.json(rxDetails);
+  };
+
+  app.post("/api/restaurants/:rxId/likes", likeRx);
   app.get("/api/restaurants", findRxs);
   app.get("/api/restaurants/:rxid", findRxDetails);
+  app.post("/api/restaurants/:rxId/:userId", findLikeRelationship);
+  app.delete("/api/restaurants/dislike/:rxId/:userId", dislike);
+  app.get("/api/restaurants/findLikes/:userId", findLikedRxs);
 };
 
 export default RxsController;
