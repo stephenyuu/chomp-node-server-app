@@ -19,3 +19,8 @@ export const createUser = async (user) => {
     const status = await usersModel.updateOne({ _id: id }, user);
     return status;
   };
+
+  export const deleteAccount = async (userId) => {
+    const status = await usersModel.findByIdAndDelete(userId)
+    return status;
+  };

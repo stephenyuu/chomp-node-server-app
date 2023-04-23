@@ -50,12 +50,18 @@ const UserController = (app) => {
     res.json(user);
   };
 
+  const deleteAccount = async (req, res) => {
+    const status = await dao.deleteAccount(req.params.userId);
+    res.send(status);
+  };
+
   app.post("/api/users/login", login);
   app.get("/api/users/profile", profile);
   app.get("/api/users/:username", findUserByUsername);
   app.post("/api/users/register", register);
   app.post("/api/users/logout", logout);
   app.put("/api/users/:id", updateUser);
+  app.delete("/api/users/delete/:userId", deleteAccount);
 
 };
 
