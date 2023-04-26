@@ -102,18 +102,11 @@ const RxsController = (app) => {
 
   app.get("/api/restaurants", findRxs);
   app.get("/api/restaurants/:rxid", findRxDetails);
-<<<<<<< HEAD
-  app.post("/api/restaurants/likes/:rxId", likeRx);
-  app.post("/api/restaurants/:rxId/:userId", findLikeRelationship);
-  app.delete("/api/restaurants/undo-like/:rxId/:userId", undoLike);
-  app.get("/api/restaurants/likes-by-user/:userId", findLikedRxs);
-=======
   app.get("/api/restaurants/reviews/:rxid", findRxReviews);
   app.post("/api/restaurants/likes/:rxid", likeRx);
   app.post("/api/restaurants/:rxid/:userid", findLikeRelationship);
   app.delete("/api/restaurants/undo-like/:rxid/:userid", undoLike);
   app.get("/api/restaurants/likes-by-user/:userid", findLikedRxs);
->>>>>>> fa750a96df74140f3463bc9ecee643cbffb0646c
 };
 
 export default RxsController;
