@@ -5,6 +5,7 @@ import UserController from "./controllers/users-controller.js";
 import ReviewsController from "./controllers/reviews-controller.js";
 import mongoose from "mongoose";
 import session from "express-session";
+import LikesController from "./controllers/likes-controller.js";
 
 const CONNECTION_STRING = "mongodb://127.0.0.1:27017/chomp";
 mongoose.connect(CONNECTION_STRING);
@@ -30,6 +31,7 @@ const PORT = process.env.PORT || 4000;
 
 RxsController(app);
 UserController(app);
+LikesController(app);
 ReviewsController(app);
 
 app.listen(PORT, () => {
