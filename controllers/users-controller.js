@@ -45,7 +45,6 @@ const UserController = (app) => {
   };
   
   const findUserByUsername = async (req, res) => {
-    // const user = users.find((user) => user.username === req.params.username);
     const user = await dao.findUserByUsername(req.params.username);
     res.json(user);
   };

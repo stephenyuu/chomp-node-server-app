@@ -93,7 +93,7 @@ const RxsController = (app) => {
 
   app.get("/api/restaurants", findRxs);
   app.get("/api/restaurants/:rxid", findRxDetails);
-  app.post("/api/restaurants/likes:rxId", likeRx);
+  app.post("/api/restaurants/likes/:rxId", likeRx);
   app.post("/api/restaurants/:rxId/:userId", findLikeRelationship);
   app.delete("/api/restaurants/undo-like/:rxId/:userId", undoLike);
   app.get("/api/restaurants/likes-by-user/:userId", findLikedRxs);

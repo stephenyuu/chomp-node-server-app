@@ -1,4 +1,4 @@
-import reviewsModel from "./reviews-model";
+import reviewsModel from "./reviews-model.js";
 
 export const createReview = async (review) => {
   const newReview = await reviewsModel.create(review);

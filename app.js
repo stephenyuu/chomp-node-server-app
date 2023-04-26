@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import RxsController from "./controllers/rxs-controller.js";
 import UserController from "./controllers/users-controller.js";
+import ReviewsController from "./controllers/reviews-controller.js";
 import mongoose from "mongoose";
 import session from "express-session";
 
@@ -29,6 +30,7 @@ const PORT = process.env.PORT || 4000;
 
 RxsController(app);
 UserController(app);
+ReviewsController(app);
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost: ${PORT}`);

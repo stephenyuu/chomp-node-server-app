@@ -20,7 +20,7 @@ export const findLikeByCredentials = async ({ rxId, userId }) => {
     return relationship;
 };
 
-export const dislike = async ({ rxId, userId}) => {
+export const undoLike = async ({ rxId, userId}) => {
     const status = await likesModel.deleteOne({ rxId, userId});
     return status;
   };
