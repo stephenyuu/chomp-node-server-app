@@ -5,7 +5,8 @@ const usersSchema = new mongoose.Schema(
     password: { type: String, required: true },
     firstName: { type: String, required: true},
     lastName: { type: String, required: true},
-    email: { type: String, required: true, unique: true}
+    email: { type: String, required: true, unique: true},
+    isReviewer: {type: Boolean, required: true},
   },
   { collection: "users" }
 );
