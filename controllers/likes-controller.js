@@ -23,21 +23,7 @@ const LikesController = (app) => {
     res.json(like);
   };
 
-  const findLikeRelationship = async (req, res) => {
-    const currentUser = req.session["currentUser"];
-    if (!currentUser) {
-      res.sendStatus(401);
-      return;
-    }
-
-    const liked = await likesDao.findLikeByCredentials({
-      rxId: req.params.rxid,
-      userId: req.params.userid,
-    });
-    res.json(liked);
-  };
-
-  const undoLike = async (req, res) => {
+  const undoLikeRx = async (req, res) => {
     const status = await likesDao.undoLike({
       rxId: req.params.rxid,
       userId: req.params.userid,
@@ -45,7 +31,21 @@ const LikesController = (app) => {
     res.send(status);
   };
 
-  const findLikedRxs = async (req, res) => {
+  const isRxLikedByUser = async (req, res) => {
+    const currentUser = req.session["currentUser"];
+    if (!currentUser) {
+      res.sendStatus(401);
+      return;
+    }
+
+    const liked = await likesDao.findLikesByCredentials({
+      rxId: req.params.rxid,
+      userId: req.params.userid,
+    });
+    res.json(liked);
+  };
+
+  const findLikedRxsOfUser = async (req, res) => {
     const liked = await likesDao.findLikesByUserId(req.params.userid);
 
     const rxDetails = await Promise.all(
@@ -58,10 +58,16 @@ const LikesController = (app) => {
     res.json(rxDetails);
   };
 
+  const findLikesOfRx = async (req, res) => {
+    const likes = await likesDao.findLikesByRxId(req.params.rxid);
+    res.json(likes);
+  }
+
   app.post("/api/likes/:rxid", likeRx);
-  app.post("/api/likes/:rxid/:userid", findLikeRelationship);
-  app.delete("/api/likes/undo-like/:rxid/:userid", undoLike);
-  app.get("/api/likes/likes-by-user/:userid", findLikedRxs);
+  app.post("/api/likes/:rxid/:userid", isRxLikedByUser);
+  app.delete("/api/likes/undo/:rxid/:userid", undoLikeRx);
+  app.get("/api/likes/user/:userid", findLikedRxsOfUser);
+  app.get("/api/likes/rxs/:rxid", findLikesOfRx);
 };
 
 export default LikesController;
