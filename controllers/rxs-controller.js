@@ -41,6 +41,15 @@ const RxsController = (app) => {
     res.json(response.data);
   };
 
+  const findRxReviews = async (req, res) => {
+    const {rxid} = req.params;
+
+    let yelpGetReviewsByIdQuery = `${YELP_RXS_REST_API_URL}/businesses/${rxid}/reviews`;
+
+    const response = await axios.get(yelpGetReviewsByIdQuery, HEADER);
+    res.json(response.data);
+  }
+
   const likeRx = async (req, res) => {
     const currentUser = req.session["currentUser"];
     if (!currentUser) {
@@ -48,7 +57,7 @@ const RxsController = (app) => {
       return;
     }
 
-    let rx = await rxDao.findRxByRxId(req.params.rxId);
+    let rx = await rxDao.findRxByRxId(req.params.rxid);
 
     if (!rx) {
       rx = await rxDao.createRx(req.body);
@@ -56,7 +65,7 @@ const RxsController = (app) => {
 
     const like = await likesDao.createLike({
       userId: currentUser._id,
-      rxId: rx.rxId,
+      rxId: rx.rxid,
       rxMongooseKey: rx._id,
     });
     res.json(like);
@@ -69,12 +78,12 @@ const RxsController = (app) => {
       return;
     }
 
-    const liked = await likesDao.findLikeByCredentials({ rxId: req.params.rxId, userId: req.params.userId });
+    const liked = await likesDao.findLikeByCredentials({ rxId: req.params.rxid, userId: req.params.userid });
     res.json(liked);
   }
 
   const undoLike = async (req, res) => {
-    const status = await likesDao.undoLike({ rxId: req.params.rxId, userId: req.params.userId });
+    const status = await likesDao.undoLike({ rxId: req.params.rxid, userId: req.params.userid });
     res.send(status);
   };
 
@@ -93,10 +102,11 @@ const RxsController = (app) => {
 
   app.get("/api/restaurants", findRxs);
   app.get("/api/restaurants/:rxid", findRxDetails);
-  app.post("/api/restaurants/likes:rxId", likeRx);
-  app.post("/api/restaurants/:rxId/:userId", findLikeRelationship);
-  app.delete("/api/restaurants/undo-like/:rxId/:userId", undoLike);
-  app.get("/api/restaurants/likes-by-user/:userId", findLikedRxs);
+  app.get("/api/restaurants/reviews/:rxid", findRxReviews);
+  app.post("/api/restaurants/likes/:rxid", likeRx);
+  app.post("/api/restaurants/:rxid/:userid", findLikeRelationship);
+  app.delete("/api/restaurants/undo-like/:rxid/:userid", undoLike);
+  app.get("/api/restaurants/likes-by-user/:userid", findLikedRxs);
 };
 
 export default RxsController;
