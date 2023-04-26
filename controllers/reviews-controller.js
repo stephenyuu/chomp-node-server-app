@@ -1,8 +1,9 @@
-import * as dao from "../reviews/reviews-dao.js";
+import * as reviewDao from "../reviews/reviews-dao.js";
+import * as rxDao from "../rxs/rxs-dao.js";
 
 const ReviewsController = (app) => {
   const findRxReviewsById = async (req, res) => {
-    const reviews = await dao.findReviewsByUserId(req.params.userid);
+    const reviews = await reviewDao.findReviewsByUserId(req.params.userid);
     res.json(reviews);
   };
 
