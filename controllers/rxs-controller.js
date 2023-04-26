@@ -73,8 +73,8 @@ const RxsController = (app) => {
     res.json(liked);
   }
 
-  const dislike = async (req, res) => {
-    const status = await likesDao.dislike({ rxId: req.params.rxId, userId: req.params.userId });
+  const undoLike = async (req, res) => {
+    const status = await likesDao.undoLike({ rxId: req.params.rxId, userId: req.params.userId });
     res.send(status);
   };
 
@@ -91,12 +91,12 @@ const RxsController = (app) => {
     res.json(rxDetails);
   };
 
-  app.post("/api/restaurants/:rxId/likes", likeRx);
   app.get("/api/restaurants", findRxs);
   app.get("/api/restaurants/:rxid", findRxDetails);
+  app.post("/api/restaurants/likes:rxId", likeRx);
   app.post("/api/restaurants/:rxId/:userId", findLikeRelationship);
-  app.delete("/api/restaurants/dislike/:rxId/:userId", dislike);
-  app.get("/api/restaurants/findLikes/:userId", findLikedRxs);
+  app.delete("/api/restaurants/undo-like/:rxId/:userId", undoLike);
+  app.get("/api/restaurants/likes-by-user/:userId", findLikedRxs);
 };
 
 export default RxsController;
