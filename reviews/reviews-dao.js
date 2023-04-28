@@ -6,8 +6,13 @@ export const createReview = async (review) => {
   return newReview;
 };
 
+export const findReviewsByRxId = async (rxId) => {
+  const reviews = await reviewsModel.find({rxId});
+  return reviews;
+}
+
 export const findReviewsByUserId = async (userId) => {
-  const reviews = await reviewsModel.find({userId});
+  const reviews = await reviewsModel.find({userMongooseKey: userId});
   return reviews;
 };
 

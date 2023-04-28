@@ -28,14 +28,20 @@ const ReviewsController = (app) => {
     res.json(newReview);
   };
 
+  const findReviewsOfRx = async (req, res) => {
+    const reviews = await reviewDao.findReviewsByRxId(req.params.rxid);
+    res.json(reviews);
+  }
+
   // finds the REVIEWS by user ID
-  const findReviewsByUserId = async (req, res) => {
+  const findReviewedRxsOfUser = async (req, res) => {
     const reviews = await reviewDao.findReviewsByUserId(req.params.userid);
     res.json(reviews);
   };
 
   app.put("/api/reviews/:rxid/", reviewRx);
-  app.get("/api/reviews/:userid", findReviewsByUserId);
+  app.get("/api/reviews/rxs/:rxid", findReviewsOfRx);
+  app.get("/api/reviews/user/:userid", findReviewedRxsOfUser);
 
 };
 
