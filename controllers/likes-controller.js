@@ -64,7 +64,7 @@ const LikesController = (app) => {
   }
 
   app.post("/api/likes/:rxid", likeRx);
-  app.post("/api/likes/:rxid/:userid", isRxLikedByUser);
+  app.post("/api/likes/liked-rx/:rxid/by/:userid", isRxLikedByUser);
   app.delete("/api/likes/undo/:rxid/:userid", undoLikeRx);
   app.get("/api/likes/user/:userid", findLikedRxsOfUser);
   app.get("/api/likes/rxs/:rxid", findLikesOfRx);

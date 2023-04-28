@@ -49,7 +49,7 @@ const ReviewsController = (app) => {
     res.send(status);
   };
 
-  app.post("/api/reviews/:rxid/:rxname", reviewRx);
+  app.post("/api/reviews/review-rx/:rxid/:rxname", reviewRx);
   app.put("/api/reviews/:reviewid", updateReview)
   app.get("/api/reviews/rxs/:rxid", findReviewsOfRx);
   app.get("/api/reviews/user/:userid", findReviewedRxsOfUser);
