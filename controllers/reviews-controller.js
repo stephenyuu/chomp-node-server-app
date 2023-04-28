@@ -22,6 +22,7 @@ const ReviewsController = (app) => {
       userMongooseKey: currentUser._id,
       rxMongooseKey: rx._id,
       rxId: rx.rxId,
+      rxName: rx.name,
       review: reviewText,
     });
 

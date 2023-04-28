@@ -12,6 +12,7 @@ const reviewsSchema = new mongoose.Schema(
       required: true,
     },
     rxId: { type: String, required: true },
+    rxName: { type: String, required: true},
     review: { type: String, required: true },
   },
   { collection: "reviews" }
