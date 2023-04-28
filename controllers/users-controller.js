@@ -49,13 +49,19 @@ const UserController = (app) => {
     res.json(user);
   };
 
+  const findUserByUserId = async (req, res) => {
+    const user = await dao.findUserByUserId(req.params.userid);
+    res.json(user);
+  }
+
   const deleteAccount = async (req, res) => {
     const status = await dao.deleteAccount(req.params.userId);
     res.send(status);
   };
 
   app.get("/api/users/profile", profile);
-  app.get("/api/users/:username", findUserByUsername);
+  app.get("/api/users/username/:username", findUserByUsername);
+  app.get("/api/users/id/:userid", findUserByUserId);
   app.post("/api/users/login", login);
   app.post("/api/users/register", register);
   app.post("/api/users/logout", logout);

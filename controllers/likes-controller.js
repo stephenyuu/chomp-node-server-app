@@ -40,7 +40,7 @@ const LikesController = (app) => {
 
     const liked = await likesDao.findLikesByCredentials({
       rxId: req.params.rxid,
-      userId: req.params.userid,
+      userMongooseKey: req.params.userid,
     });
     res.json(liked);
   };

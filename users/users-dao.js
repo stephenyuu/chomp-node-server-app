@@ -15,6 +15,11 @@ export const createUser = async (user) => {
     return user;
   };
 
+  export const findUserByUserId = async (userId) => {
+    const user = await usersModel.findById(userId);
+    return user;
+  }
+  
   export const updateUser = async (id, user) => {
     const status = await usersModel.updateOne({ _id: id }, user);
     return status;

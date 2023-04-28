@@ -11,7 +11,7 @@ export const undoLike = async ({ rxId, userMongooseKey }) => {
 };
 
 export const findLikesByUserId = async (userId) => {
-  const likes = await likesModel.find({ userId });
+  const likes = await likesModel.find({userMongooseKey : userId});
   return likes;
 };
 
