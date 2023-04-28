@@ -19,7 +19,7 @@ const ReviewsController = (app) => {
     }
 
     const newReview = await reviewsDao.createReview({
-      userId: currentUser._id,
+      userMongooseKey: currentUser._id,
       rxMongooseKey: rx._id,
       rxId: rx.rxId,
       review,
