@@ -16,7 +16,7 @@ const LikesController = (app) => {
     }
 
     const like = await likesDao.createLike({
-      userId: currentUser._id,
+      userMongooseKey: currentUser._id,
       rxId: rx.rxId,
       rxMongooseKey: rx._id,
     });
@@ -26,7 +26,7 @@ const LikesController = (app) => {
   const undoLikeRx = async (req, res) => {
     const status = await likesDao.undoLike({
       rxId: req.params.rxid,
-      userId: req.params.userid,
+      userMongooseKey: req.params.userid,
     });
     res.send(status);
   };

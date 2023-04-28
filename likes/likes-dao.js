@@ -5,8 +5,8 @@ export const createLike = async (like) => {
   return newLike;
 };
 
-export const undoLike = async ({ rxId, userId }) => {
-  const status = await likesModel.deleteOne({ rxId, userId });
+export const undoLike = async ({ rxId, userMongooseKey }) => {
+  const status = await likesModel.deleteOne({ rxId, userMongooseKey });
   return status;
 };
 
